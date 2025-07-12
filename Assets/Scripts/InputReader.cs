@@ -8,6 +8,7 @@ public class InputReader : ScriptableObject, IGameplayActions
 {
     public event Action<Vector2> MovementEvent;
     public event Action TransformEvent;
+    public event Action OnEscapePressed;
     
     public Vector2 AimPosition { get; private set; }
     public Vector2 ScrollDelta { get; set; }
@@ -70,5 +71,13 @@ public class InputReader : ScriptableObject, IGameplayActions
     public void OnControllerZoom(InputAction.CallbackContext context)
     {
         BumperDelta = context.ReadValue<float>();
+    }
+
+    public void OnQuit(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnEscapePressed?.Invoke();
+        }
     }
 }

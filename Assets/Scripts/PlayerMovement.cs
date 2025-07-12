@@ -30,12 +30,14 @@ public class PlayerMovement : MonoBehaviour
     {
         inputReader.MovementEvent += HandleMoveInput;
         inputReader.TransformEvent += HandleTransformation;
+        inputReader.OnEscapePressed += HandleEscapePressed;
     }
 
     private void OnDisable()
     {
         inputReader.MovementEvent -= HandleMoveInput;
         inputReader.TransformEvent -= HandleTransformation;
+        inputReader.OnEscapePressed -= HandleEscapePressed;
     }
 
     private void Awake()
@@ -117,5 +119,10 @@ public class PlayerMovement : MonoBehaviour
             _isTransformed = false;
             _animationManager.SetTransformedState(_isTransformed);
         }
+    }
+
+    private void HandleEscapePressed()
+    {
+        Application.Quit();
     }
 }

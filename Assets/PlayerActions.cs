@@ -135,6 +135,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""af1bc815-ed4d-416b-a2ae-6c6b986b5b86"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -291,6 +300,28 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""ControllerZoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0414c818-9809-431d-abdc-7dc6f13eab4b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8a04eb5-8585-428c-9463-b31622d2fe08"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -304,6 +335,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_Gameplay_Transform = m_Gameplay.FindAction("Transform", throwIfNotFound: true);
         m_Gameplay_MouseZoom = m_Gameplay.FindAction("MouseZoom", throwIfNotFound: true);
         m_Gameplay_ControllerZoom = m_Gameplay.FindAction("ControllerZoom", throwIfNotFound: true);
+        m_Gameplay_Quit = m_Gameplay.FindAction("Quit", throwIfNotFound: true);
     }
 
     ~@PlayerActions()
@@ -389,6 +421,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Transform;
     private readonly InputAction m_Gameplay_MouseZoom;
     private readonly InputAction m_Gameplay_ControllerZoom;
+    private readonly InputAction m_Gameplay_Quit;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -420,6 +453,10 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/ControllerZoom".
         /// </summary>
         public InputAction @ControllerZoom => m_Wrapper.m_Gameplay_ControllerZoom;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Quit".
+        /// </summary>
+        public InputAction @Quit => m_Wrapper.m_Gameplay_Quit;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -461,6 +498,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ControllerZoom.started += instance.OnControllerZoom;
             @ControllerZoom.performed += instance.OnControllerZoom;
             @ControllerZoom.canceled += instance.OnControllerZoom;
+            @Quit.started += instance.OnQuit;
+            @Quit.performed += instance.OnQuit;
+            @Quit.canceled += instance.OnQuit;
         }
 
         /// <summary>
@@ -487,6 +527,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ControllerZoom.started -= instance.OnControllerZoom;
             @ControllerZoom.performed -= instance.OnControllerZoom;
             @ControllerZoom.canceled -= instance.OnControllerZoom;
+            @Quit.started -= instance.OnQuit;
+            @Quit.performed -= instance.OnQuit;
+            @Quit.canceled -= instance.OnQuit;
         }
 
         /// <summary>
@@ -562,5 +605,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnControllerZoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Quit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQuit(InputAction.CallbackContext context);
     }
 }
